@@ -3,10 +3,69 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Autor prezentacije i alat koji je koristen za izradu prezentacije -->
+    <meta name="author" content="Dejan Kumric">
+    <meta name="generator" content="Visual Studio Code">
+
+    <!-- Za izradu prezentacije koristi se lokalna kopija Bootstrap-a 4. -->
+    <link rel="stylesheet" type="text/css" href="./bootstrap/bootstrap.min.css">
+    <!-- I koristim besplatne Font Awesome fontove za znak brenda. -->
+    <link rel="stylesheet" href="./fontawesome/css/all.css">
+    <!-- Moji stilovi -->
+    <link rel="stylesheet" type="text/css" href="./css/mojiStilovi.css">
+
+    <!-- Neophodni skriptovi jQuery, popper.js i bootstrap.js-->
+    <script src="./jquery/jquery-3.4.1.js"></script>
+    <script src="./popper/popper.min.js"></script>
+    <script src="./js/bootstrap.min.js"></script>
+
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title> ToDo lista </title>
 </head>
 <body>
-    
+    <div class="container">
+        <h1> ToDo lista </h1>
+  
+        <div class="new-task-container box">
+        
+        <label for="new-task"> Dodaj novi zadatak </label>
+        <input type="text" id="new-task">
+            <button id="addTask" class="btn btn-info"> Dodaj zadatak </button>
+        
+        </div>
+        
+        <div class="todo-lista box">
+        
+            <h2> Nedovršeni zadaci </h2>
+
+            <ul>
+                <li><input type="checkbox"><label class="checkit"> Naziv zadatkaaaaaaaa aaaaaaaaaaa aaaaaaaaaaaaa aaaaaaaaaaa </label></li>
+                <li><input type="checkbox"><label class="checkit"> Naziv zadatka </label></li>
+                <li><input type="checkbox"><label class="checkit"> Naziv zadatka </label></li>
+            </ul>
+        
+        </div><!--/todo-list-->
+        
+        <div class="complete-list box">
+            
+            <h2> Završeni zadaci </h2>
+
+            <table>
+                <tr>
+                    <td> Ovo je moj prvi dugacki naziv zadatka. Bas je jako dug. </td>
+                    <td> <button class="nedovrsen btn btn-primary"> Nedovršen </button> </td>
+                    <td> <button class="delete btn btn-danger"> Izbriši </button> </td>
+                </tr>
+                <tr>
+                    <td> Ovo je moj prvi dugacki naziv zadatka. Bas je jako dug. </td>
+                    <td> <button class="nedovrsen btn btn-primary"> Nedovršen </button> </td>
+                    <td> <button class="delete btn btn-danger"> Izbriši </button> </td>
+                </tr>
+            </table>           
+            
+        </div><!--/complete-list-->
+  
+    </div>   
 </body>
 </html>
