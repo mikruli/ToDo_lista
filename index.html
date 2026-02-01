@@ -78,17 +78,7 @@
                 let zadaci = $("ul#novi-zadaci");
                 let noviZadatak = '<li>' + '<input type="checkbox">' + '<label class="checkit">' + task + '</label>' + '</li>';
                 if( task ) {
-                    // console.log('<li>',
-                    //     '<input type="checkbox">',
-                    //     '<label class="checkit">' + task + '</label>',
-                    //     '</li>');
-                    console.log("Novi zadatak:", noviZadatak);
-                    // zadaci.append(
-                    //     '<li>',
-                    //     '<input type="checkbox">',
-                    //     '<label class="checkit">' + task + '</label>',
-                    //     '</li>'
-                    // )
+                    // console.log("Novi zadatak:", noviZadatak);
                     zadaci.append(noviZadatak);
                 }
 
@@ -96,47 +86,59 @@
 
             // Brisanje zadatka iz liste novih zadatak i dodavanje u listu zavrsenih zadataka
 
-            $('input[type="checkbox"]').change(function() {
-                // tekst zadatka koji se brise
-                let zadatak = $(this).siblings().text();
-                // da li je checkbox selektovan
-                if( $(this).is(':checked') ) {
-                    console.log("USAO U IF !!!!");
-                    $(this).parent("li").remove();
+            $('#novi-zadaci').on('change', 'input[type="checkbox"]', function () {
+                let zadatak = $(this).siblings('label').text();
 
-                    // i dodaj novi red u listu zavrsenih zadataka
-                    let zavrseniZadaci =$("#gotovi-zadaci");
-                    let uradeniZadatak = '<tr>' +
-                                        '<td class="red-tekst">' + zadatak + '</td>' +
-                                        '<td class="red-dugme"> <button class="nedovrsen btn btn-primary"> Nedovršen </button> </td>' +
-                                        '<td class="red-dugme"> <button class="delete btn btn-danger"> Izbriši </button> </td>' +
-                                        '</tr>';
-                    zavrseniZadaci.append(uradeniZadatak);
+                if ($(this).is(':checked')) {
+                    $(this).parent('li').remove();
+
+                    let uradeniZadatak = `
+                        <tr>
+                            <td class="red-tekst">${zadatak}</td>
+                            <td class="red-dugme">
+                                <button class="nedovrsen btn btn-primary">Nedovršen</button>
+                            </td>
+                            <td class="red-dugme">
+                                <button class="delete btn btn-danger">Izbriši</button>
+                            </td>
+                        </tr>
+                    `;
+
+                    $('#gotovi-zadaci').append(uradeniZadatak);
                 }
-                
             });
 
             // izbrisi zadatak iz liste uradenih zadataka
 
-            $(".delete").on("click", function() {
-                console.log("Pritisnut je button delete !!!!");
-                $(this).parents("tr").remove();
+            $('#gotovi-zadaci').on('click', '.delete', function () {
+                $(this).closest('tr').remove();
             });
 
             // prebaci zadatak u lisu nedovrsenih zadataka
 
-            $(".nedovrsen").on("click", function() {
-                console.log("Pritisnuto je dugme nedovrsen !!!!");
-                let selektovaniRed = $(this).parents("tr");
-                console.log(selektovaniRed);
-                let tekstSelektovanogReda = selektovaniRed.children("td.red-tekst").contents().text();
-                console.log("Tekst zadatka je: " + tekstSelektovanogReda);
-                let noviZadatak = '<li>' + '<input type="checkbox">' + '<label class="checkit">' + tekstSelektovanogReda + '</label>' + '</li>';
-                $(this).parents("tr").remove();
-                $("ul#novi-zadaci").append(noviZadatak);
+            $('#gotovi-zadaci').on('click', '.nedovrsen', function () {
+                let red = $(this).closest('tr');
+                let tekst = red.find('.red-tekst').text();
+
+                let noviZadatak = `
+                    <li>
+                        <input type="checkbox">
+                        <label class="checkit">${tekst}</label>
+                    </li>
+                `;
+
+                red.remove();
+                $('#novi-zadaci').append(noviZadatak);
             });
 
-            
+            // Pravilo koje vredi ZAUVEK u jQuery-ju
+
+            // Ako element može biti dinamički dodat
+            // ➜ uvek koristi delegirani event
+
+            // Forma:
+
+            // $(parent).on(event, selector, handler)
 
         });
     
